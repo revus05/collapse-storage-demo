@@ -1,0 +1,17 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(npm install:*)",
+      "Bash(node -e \"console.log\\(require\\(''./node_modules/@tanstack/react-form/package.json''\\).version\\)\")",
+      "Bash(node -e \"console.log\\(require\\(''./node_modules/@tanstack/zod-form-adapter/package.json''\\).version\\)\")",
+      "Bash(node -e \"const v=JSON.parse\\(require\\(''''fs''''\\).readFileSync\\(''''/dev/stdin'''',''''utf8''''\\)\\);console.log\\(v.slice\\(-5\\).join\\(''''\\\\n''''\\)\\)\")",
+      "Bash(npm show:*)",
+      "Bash(npm uninstall:*)",
+      "Bash(cd:*)",
+      "Bash(npx prisma:*)",
+      "Bash(npm run:*)",
+      "Bash(node -e \"const {PrismaClient}=require\\(''./node_modules/@prisma/client''\\);const p=new PrismaClient\\({datasourceUrl:''postgres://postgres:12345678@localhost/collapse-storage-demo''}\\);p.user.count\\(\\).then\\(c=>console.log\\(''count:'',c\\)\\).catch\\(e=>console.error\\(e.message\\)\\).finally\\(\\(\\)=>p.$disconnect\\(\\)\\)\")",
+      "Bash(npx tsc:*)"
+    ]
+  }
+}
