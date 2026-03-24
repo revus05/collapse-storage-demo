@@ -7,7 +7,7 @@ declare global {
 }
 
 function createPrismaClient() {
-  const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! })
+  const adapter = new PrismaPg({ connectionString: process.env.STORAGE_PRISMA_DATABASE_URL! })
   return new PrismaClient({ adapter })
 }
 

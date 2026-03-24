@@ -3,7 +3,7 @@ import { PrismaPg } from "@prisma/adapter-pg"
 import { PrismaClient } from "@prisma/client"
 import bcrypt from "bcryptjs"
 
-const adapter = new PrismaPg({ connectionString: process.env.DATABASE_URL! })
+const adapter = new PrismaPg({ connectionString: process.env.STORAGE_PRISMA_DATABASE_URL! })
 const prisma = new PrismaClient({ adapter })
 
 async function main() {
