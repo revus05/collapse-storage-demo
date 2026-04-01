@@ -2,8 +2,6 @@ import { ArrowLeft } from "lucide-react";
 import Link from "next/link";
 import { notFound } from "next/navigation";
 import { OrderProducts } from "@/components/order-products";
-import { OrderProducts1 } from "@/components/order-products-1";
-import { OrderProducts2 } from "@/components/order-products-2";
 import { getOrder } from "@/lib/data";
 import { getSession } from "@/lib/session";
 

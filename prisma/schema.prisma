@@ -15,6 +15,7 @@ enum OrderStatus {
   NEW
   IN_PROGRESS
   READY
+  IMPORTANT
 }
 
 model User {

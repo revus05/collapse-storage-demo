@@ -1,4 +1,4 @@
-export type OrderStatus = "NEW" | "IN_PROGRESS" | "READY"
+export type OrderStatus = "NEW" | "IN_PROGRESS" | "READY" | "IMPORTANT"
 
 const statusConfig: Record<OrderStatus, { label: string; className: string }> = {
   NEW: {
@@ -13,6 +13,10 @@ const statusConfig: Record<OrderStatus, { label: string; className: string }> = 
     label: "Готов",
     className:
       "bg-emerald-100 text-emerald-700 dark:bg-emerald-950 dark:text-emerald-300",
+  },
+  IMPORTANT: {
+    label: "Важный",
+    className: "bg-red-100 text-red-700 dark:bg-red-950 dark:text-red-300",
   },
 }
 

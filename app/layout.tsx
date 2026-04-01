@@ -1,6 +1,5 @@
 import { Geist_Mono, Inter, Noto_Sans } from "next/font/google";
 import "./globals.css";
-import { CosmicBackground } from "@/components/cosmic-background";
 import { Header } from "@/components/header";
 import { ThemeProvider } from "@/components/theme-provider";
 import { getSession } from "@/lib/session";
@@ -37,7 +36,6 @@ export default async function RootLayout({
           <ReduxProvider user={user}>
             {user && <Header />}
             {children}
-            <CosmicBackground />
           </ReduxProvider>
         </ThemeProvider>
       </body>

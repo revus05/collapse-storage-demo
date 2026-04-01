@@ -1,36 +1,25 @@
-"use client";
+"use client"
 
-import { useRef } from "react";
-import { Provider } from "react-redux";
-import { persistStore } from "redux-persist";
-import { PersistGate } from "redux-persist/integration/react";
-import type { Persistor } from "redux-persist";
-import type { AuthUser } from "./authSlice";
-import { setUser } from "./authSlice";
-import { type AppStore, makeStore } from "./index";
+import React, { useRef } from "react"
+import { Provider } from "react-redux"
+import { makeStore, type AppStore } from "./index"
+import { setUser } from "./authSlice"
+import type { AuthUser } from "./authSlice"
 
 interface Props {
-  user: AuthUser | null;
-  children: React.ReactNode;
+  user: AuthUser | null
+  children: React.ReactNode
 }
 
 export function ReduxProvider({ user, children }: Props) {
-  const storeRef = useRef<AppStore | null>(null);
-  const persistorRef = useRef<Persistor | null>(null);
+  const storeRef = useRef<AppStore | null>(null)
 
   if (!storeRef.current) {
-    storeRef.current = makeStore();
-    persistorRef.current = persistStore(storeRef.current);
+    storeRef.current = makeStore()
     if (user) {
-      storeRef.current.dispatch(setUser(user));
+      storeRef.current.dispatch(setUser(user))
     }
   }
 
-  return (
-    <Provider store={storeRef.current}>
-      <PersistGate persistor={persistorRef.current!}>
-        {children}
-      </PersistGate>
-    </Provider>
-  );
+  return <Provider store={storeRef.current}>{children}</Provider>
 }
