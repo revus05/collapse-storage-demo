@@ -3,7 +3,7 @@
 import React, { useEffect, useRef } from "react"
 import { Provider } from "react-redux"
 import { makeStore, type AppStore } from "./index"
-import { setUser } from "./authSlice"
+import { setUser, clearUser } from "./authSlice"
 import type { AuthUser } from "./authSlice"
 import { loadAssemblyState, rehydrate } from "./assemblySlice"
 
@@ -32,6 +32,14 @@ export function ReduxProvider({ user, children }: Props) {
       storeRef.current!.dispatch(rehydrate(savedAssemblyRef.current))
     }
   }, [])
+
+  useEffect(() => {
+    if (user) {
+      storeRef.current!.dispatch(setUser(user))
+    } else {
+      storeRef.current!.dispatch(clearUser())
+    }
+  }, [user])
 
   return <Provider store={storeRef.current}>{children}</Provider>
 }

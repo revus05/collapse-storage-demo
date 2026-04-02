@@ -11,6 +11,7 @@ import {
   PopoverTrigger,
 } from "@/components/ui/popover";
 import { clearUser } from "@/store/authSlice";
+import { clearAssembly } from "@/store/assemblySlice";
 import { useAppDispatch, useAppSelector } from "@/store/hooks";
 
 export function UserMenu() {
@@ -26,6 +27,7 @@ export function UserMenu() {
 
   async function handleLogout() {
     await fetch("/api/auth/logout", { method: "POST" });
+    dispatch(clearAssembly());
     dispatch(clearUser());
     router.push("/login");
   }

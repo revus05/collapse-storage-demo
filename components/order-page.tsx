@@ -226,7 +226,7 @@ export const OrderPage: FC<OrderPageProps> = ({ search, statusFilter }) => {
                     href={`/orders/${order.id}`}
                     className="flex items-center gap-3 min-w-0 group/row"
                   >
-                    <ProductThumb imageUrl={product.imageUrl} size="sm" />
+                    <ProductThumb imageUrl={product.imageUrl} />
                     <span className="text-sm font-medium truncate min-w-0">
                       {product.name}
                     </span>
