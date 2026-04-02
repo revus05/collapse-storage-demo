@@ -68,7 +68,7 @@ export default function OrdersPage() {
 
   return (
     <div className="min-h-screen">
-      <div className="max-w-252 mx-auto px-4 py-8 flex flex-col gap-8">
+      <div className="max-w-5xl mx-auto px-4 py-8 flex flex-col gap-8">
         <div className="flex justify-between sm:flex-row flex-col gap-4 sm:items-center">
           <div>
             <h1 className="text-2xl font-semibold tracking-tight">Заказы</h1>
@@ -81,7 +81,21 @@ export default function OrdersPage() {
                   : "заказов"}
             </p>
           </div>
+        </div>
 
+        <div className="flex justify-between sm:items-center w-full sm:flex-row flex-col gap-4 items-start">
+          <div className="flex flex-wrap gap-2">
+            {statusConfig.map((s) => (
+              <button
+                type="button"
+                key={s.value}
+                onClick={() => toggleStatus(s.value)}
+                className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium transition-colors ${s.className} ${statusFilter === s.value ? s.activeClassName : "bg-transparent hover:bg-accent/50"}`}
+              >
+                {s.label}
+              </button>
+            ))}
+          </div>
           <InputGroup className="sm:w-50">
             <InputGroupInput
               value={search}
@@ -92,19 +106,6 @@ export default function OrdersPage() {
               <Search />
             </InputGroupAddon>
           </InputGroup>
-        </div>
-
-        <div className="flex flex-wrap gap-2">
-          {statusConfig.map((s) => (
-            <button
-              type="button"
-              key={s.value}
-              onClick={() => toggleStatus(s.value)}
-              className={`inline-flex items-center rounded-full border px-3 py-1 text-xs font-medium transition-colors ${s.className} ${statusFilter === s.value ? s.activeClassName : "bg-transparent hover:bg-accent/50"}`}
-            >
-              {s.label}
-            </button>
-          ))}
         </div>
 
         <OrderPage search={search} statusFilter={statusFilter} />

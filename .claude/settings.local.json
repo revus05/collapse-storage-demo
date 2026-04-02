@@ -14,7 +14,8 @@
       "Bash(npx tsc:*)",
       "Bash(curl -s \"https://collapse.by\" -L --max-time 30 -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\")",
       "Bash(curl -s \"https://collapse.by/catalog/sumki\" -L --max-time 30 -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\")",
-      "Bash(grep -r actions D:/web/collapse-storage-demo/components D:/web/collapse-storage-demo/app --include=*.tsx --include=*.ts -l)"
+      "Bash(grep -r actions D:/web/collapse-storage-demo/components D:/web/collapse-storage-demo/app --include=*.tsx --include=*.ts -l)",
+      "Bash(npx tsx:*)"
     ]
   }
 }

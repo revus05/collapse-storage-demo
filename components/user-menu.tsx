@@ -45,7 +45,7 @@ export function UserMenu() {
 
       <PopoverContent
         align="end"
-        className="w-56 p-0 gap-0Вы overflow-hidden rounded-xl"
+        className="w-56 p-0 gap-0 overflow-hidden rounded-xl"
       >
         <div className="px-4 py-3 border-b border-border">
           <p className="text-sm font-semibold leading-tight">{user.name}</p>
