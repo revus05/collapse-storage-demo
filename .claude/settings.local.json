@@ -13,7 +13,8 @@
       "Bash(node -e \"const {PrismaClient}=require\\(''./node_modules/@prisma/client''\\);const p=new PrismaClient\\({datasourceUrl:''postgres://postgres:12345678@localhost/collapse-storage-demo''}\\);p.user.count\\(\\).then\\(c=>console.log\\(''count:'',c\\)\\).catch\\(e=>console.error\\(e.message\\)\\).finally\\(\\(\\)=>p.$disconnect\\(\\)\\)\")",
       "Bash(npx tsc:*)",
       "Bash(curl -s \"https://collapse.by\" -L --max-time 30 -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\")",
-      "Bash(curl -s \"https://collapse.by/catalog/sumki\" -L --max-time 30 -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\")"
+      "Bash(curl -s \"https://collapse.by/catalog/sumki\" -L --max-time 30 -A \"Mozilla/5.0 \\(Windows NT 10.0; Win64; x64\\) AppleWebKit/537.36 \\(KHTML, like Gecko\\) Chrome/120.0.0.0 Safari/537.36\")",
+      "Bash(grep -r actions D:/web/collapse-storage-demo/components D:/web/collapse-storage-demo/app --include=*.tsx --include=*.ts -l)"
     ]
   }
 }

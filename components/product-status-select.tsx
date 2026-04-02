@@ -1,8 +1,9 @@
 "use client";
 
-import React, { useEffect, useState, useTransition } from "react";
+import React, { useEffect, useState } from "react";
+import { useMutation, useQueryClient } from "@tanstack/react-query";
 import { useTheme } from "next-themes";
-import { updateProductStatus } from "@/app/actions";
+import { patchProductStatus } from "@/lib/api";
 import type { OrderStatus } from "@/lib/data";
 
 const statusOptionStyles: Record<OrderStatus, { light: React.CSSProperties; dark: React.CSSProperties }> = {
@@ -51,18 +52,32 @@ export function ProductStatusSelect({
   status: OrderStatus;
 }) {
   const [current, setCurrent] = useState<OrderStatus>(status);
-  const [isPending, startTransition] = useTransition();
   const { resolvedTheme } = useTheme();
   const [mounted, setMounted] = useState(false);
   useEffect(() => setMounted(true), []);
+
+  // Sync with external changes (e.g. query refetch from another page)
+  useEffect(() => {
+    setCurrent(status);
+  }, [status]);
   const isDark = mounted && resolvedTheme === "dark";
 
+  const queryClient = useQueryClient();
+  const { mutate, isPending } = useMutation({
+    mutationFn: (newStatus: OrderStatus) => patchProductStatus(productId, newStatus),
+    onMutate: (newStatus) => {
+      setCurrent(newStatus);
+    },
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ["orders"] });
+    },
+    onError: () => {
+      setCurrent(status);
+    },
+  });
+
   function handleChange(e: React.ChangeEvent<HTMLSelectElement>) {
-    const newStatus = e.target.value as OrderStatus;
-    setCurrent(newStatus);
-    startTransition(() => {
-      updateProductStatus(productId, newStatus);
-    });
+    mutate(e.target.value as OrderStatus);
   }
 
   return (

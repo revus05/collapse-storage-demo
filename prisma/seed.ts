@@ -11,7 +11,7 @@ async function main() {
   const adminPassword = await bcrypt.hash("Admin1234!", 12)
   const userPassword = await bcrypt.hash("User1234!", 12)
 
-  const admin = await prisma.user.upsert({
+  await prisma.user.upsert({
     where: { email: "admin@example.com" },
     update: {},
     create: {
@@ -33,88 +33,90 @@ async function main() {
     },
   })
 
-  console.log("✓ Users seeded:", admin.email, "/ user@example.com")
+  console.log("✓ Users seeded")
 
   // ── Orders & Products ────────────────────────────────────────────────────
+  // Clear existing orders/products to avoid duplicates
+  await prisma.product.deleteMany()
+  await prisma.order.deleteMany()
+
   const ordersData = [
     {
       id: "4821",
+      createdAt: new Date("2026-03-10"),
       products: [
         {
-          name: "Коллапс-сумка «Стандарт» L",
-          imageColor: "#6366f1",
+          name: "Сумка VORTEX",
+          imageUrl: "https://collapse.by/uploads/all%20products/VORTEX/VORTEX%20Ripstop/V1.PNG",
           status: "READY" as const,
           params: {
-            "Цвет подкладки": "Бежевый",
-            "Размер": "L (40×30×15 см)",
-            "Материал внешний": "Кордура 1000D",
+            "Материал": "Ripstop",
+            "Тип": "Городская сумка",
             "Улучшенные карабины": true,
             "Тип застёжки": "Молния YKK",
             "Усиленное дно": false,
-            "Количество внутренних отделений": 3,
+            "Количество отделений": 3,
             "Цвет фурнитуры": "Чёрный никель",
           },
+          userComment: "Прошу упаковать аккуратно, подарок.",
+          productionComment: "Швы усилены вручную, проверить перед отправкой.",
         },
         {
-          name: "Органайзер «Куб» M",
-          imageColor: "#f59e0b",
+          name: "Городская сумка SAMURAI Mini",
+          imageUrl: "https://collapse.by/uploads/all%20products/SAMURAI/Mini/promo%20poster1-02.jpg",
           status: "READY" as const,
           params: {
-            "Цвет подкладки": "Серый",
-            "Размер": "M (20×20×20 см)",
-            "Материал внешний": "Рипстоп 420D",
+            "Тип": "Городская сумка",
+            "Размер": "Mini",
+            "Материал внешний": "Кордура",
             "Улучшенные карабины": false,
             "Тип застёжки": "Молния SBS",
-            "Сетчатые карманы": 2,
             "Цвет фурнитуры": "Матовое серебро",
           },
         },
         {
-          name: "Чехол для обуви «Компакт»",
-          imageColor: "#10b981",
+          name: "Сумка Doom Slayer",
+          imageUrl: "https://collapse.by/uploads/all%20products/DOOM_2/promo%20poster1-03.jpg",
           status: "IN_PROGRESS" as const,
           params: {
-            "Цвет подкладки": "Чёрный",
-            "Размер": "Universal (до 46-го)",
-            "Материал внешний": "Оксфорд 600D",
+            "Тип": "Городская сумка",
+            "Материал внешний": "Кордура 1000D",
             "Улучшенные карабины": true,
-            "Тип застёжки": "Кнопка + липучка",
+            "Тип застёжки": "Молния YKK",
             "Водоотталкивающая пропитка": true,
-            "Цвет фурнитуры": "Золото",
+            "Цвет фурнитуры": "Чёрный",
           },
         },
       ],
     },
     {
       id: "3174",
+      createdAt: new Date("2026-03-15"),
       products: [
         {
-          name: "Несессер «Трэвел» XL",
-          imageColor: "#ec4899",
+          name: "Городская сумка TOKEN Color",
+          imageUrl: "https://collapse.by/uploads/all%20products/TOKEN/COLOR/COLOR.jpg",
           status: "IN_PROGRESS" as const,
           params: {
-            "Цвет подкладки": "Розовый",
-            "Размер": "XL (30×15×10 см)",
+            "Тип": "Городская сумка",
+            "Версия": "Color",
             "Материал внешний": "Кордура 500D",
             "Улучшенные карабины": true,
-            "Зеркало в комплекте": true,
-            "Крючок для подвески": true,
-            "Количество карманов": 8,
-            "Цвет фурнитуры": "Розовое золото",
+            "Количество карманов": 4,
+            "Цвет фурнитуры": "Чёрный никель",
           },
         },
         {
-          name: "Сумка-органайзер для документов",
-          imageColor: "#3b82f6",
+          name: "Городская сумка TOKEN Grid",
+          imageUrl: "https://collapse.by/uploads/all%20products/TOKEN/GRID/TOKEN%20GRID%208.png",
           status: "NEW" as const,
           params: {
-            "Цвет подкладки": "Синий",
-            "Размер": "A4 (32×22×3 см)",
-            "Материал внешний": "Экокожа",
+            "Тип": "Городская сумка",
+            "Версия": "Grid",
+            "Материал внешний": "Кордура",
             "Улучшенные карабины": false,
-            "RFID-защита": true,
+            "MOLLE-система": true,
             "Тип застёжки": "Молния YKK",
-            "Количество отделений для карт": 6,
             "Цвет фурнитуры": "Серебро",
           },
         },
@@ -122,19 +124,16 @@ async function main() {
     },
     {
       id: "5509",
+      createdAt: new Date("2026-03-20"),
       products: [
         {
-          name: "Коллапс-рюкзак «Ультра» 25L",
-          imageColor: "#8b5cf6",
+          name: "Сумка Edgerunner",
+          imageUrl: "https://collapse.by/uploads/all%20products/Edgerunner/1.jpg",
           status: "NEW" as const,
           params: {
-            "Цвет подкладки": "Оливковый",
-            "Объём": "25 литров",
+            "Тип": "Городская сумка",
             "Материал внешний": "Кордура 1000D",
             "Улучшенные карабины": true,
-            "Система спинки": "AirMesh с каркасом",
-            "Грудная стяжка": true,
-            "Поясной ремень": false,
             "Количество внешних карманов": 4,
             "Цвет фурнитуры": "Матовый чёрный",
             "Светоотражающие элементы": true,
@@ -144,46 +143,41 @@ async function main() {
     },
     {
       id: "2963",
+      createdAt: new Date("2026-02-28"),
       products: [
         {
-          name: "Органайзер для кабелей «Сетап»",
-          imageColor: "#f97316",
+          name: "Мессенджер MAELSTROM",
+          imageUrl: "https://collapse.by/uploads/all%20products/Maelstrom/Maelstrom1.jpg",
           status: "READY" as const,
           params: {
-            "Цвет подкладки": "Чёрный",
-            "Размер": "S (18×12 см)",
-            "Материал внешний": "Рипстоп 210D",
+            "Тип": "Мессенджер",
+            "Материал внешний": "Рипстоп",
             "Улучшенные карабины": false,
             "Тип застёжки": "Молния + клапан",
-            "Эластичные петли для кабелей": 8,
             "Цвет фурнитуры": "Чёрный",
           },
         },
         {
-          name: "Чехол для планшета «Слим» 11\"",
-          imageColor: "#14b8a6",
+          name: "Сумка EVA-02",
+          imageUrl: "https://collapse.by/uploads/all%20products/EVA-02/1.jpg",
           status: "READY" as const,
           params: {
-            "Цвет подкладки": "Серый меланж",
-            "Совместимость": "Планшеты до 11\"",
-            "Материал внешний": "Неопрен + Кордура",
+            "Тип": "Городская сумка",
+            "Материал внешний": "Кордура",
             "Улучшенные карабины": true,
-            "Подкладка": "Флис",
-            "Тип застёжки": "Молния YKK + магнит",
+            "Тип застёжки": "Молния YKK",
             "Ручка для переноски": true,
             "Цвет фурнитуры": "Серебро",
           },
         },
         {
-          name: "Поясная сумка «Экспресс» S",
-          imageColor: "#ef4444",
+          name: "Рюкзак PHANTOM",
+          imageUrl: "https://collapse.by/uploads/all%20products/PHANTOM/PH1.jpg",
           status: "READY" as const,
           params: {
-            "Цвет подкладки": "Красный",
-            "Размер": "S (22×12×6 см)",
+            "Тип": "Рюкзак",
             "Материал внешний": "Кордура 500D",
             "Улучшенные карабины": true,
-            "Тип ремня": "Быстросъёмный, регулируемый",
             "Тип застёжки": "Молния YKK",
             "Скрытый карман": true,
             "Цвет фурнитуры": "Чёрный никель",
@@ -194,12 +188,11 @@ async function main() {
   ]
 
   for (const order of ordersData) {
-    await prisma.order.upsert({
-      where: { id: order.id },
-      update: {},
-      create: {
+    await prisma.order.create({
+      data: {
         id: order.id,
-        products: { create: order.products },
+        createdAt: order.createdAt,
+        products: { create: order.products.map((p, i) => ({ ...p, position: i })) },
       },
     })
   }

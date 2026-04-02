@@ -3,6 +3,7 @@ import type { FC } from "react";
 import { ProductStatusSelect } from "@/components/product-status-select";
 import { ProductThumb } from "@/components/product-thumb";
 import { StatusBadge } from "@/components/status-badge";
+import { ProductComment } from "@/components/product-comment";
 import type { Product } from "@/lib/data";
 
 type OrderProductsProps = {
@@ -69,6 +70,23 @@ export const OrderProducts: FC<OrderProductsProps> = ({
                 </div>
               ))}
             </div>
+          </div>
+
+          <div className="px-4 pb-4 flex flex-col gap-4 border-t border-border pt-4">
+            <ProductComment
+              productId={product.id}
+              field="userComment"
+              label="Комментарий покупателя"
+              initialValue={product.userComment ?? ""}
+            />
+            {isAdmin && (
+              <ProductComment
+                productId={product.id}
+                field="productionComment"
+                label="Внутренний комментарий производства"
+                initialValue={product.productionComment ?? ""}
+              />
+            )}
           </div>
         </div>
       ))}

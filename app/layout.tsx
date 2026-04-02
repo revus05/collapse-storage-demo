@@ -1,6 +1,7 @@
 import { Geist_Mono, Inter, Noto_Sans } from "next/font/google";
 import "./globals.css";
 import { Header } from "@/components/header";
+import { QueryProvider } from "@/components/query-provider";
 import { ThemeProvider } from "@/components/theme-provider";
 import { getSession } from "@/lib/session";
 import { cn } from "@/lib/utils";
@@ -33,10 +34,12 @@ export default async function RootLayout({
     >
       <body>
         <ThemeProvider>
-          <ReduxProvider user={user}>
-            {user && <Header />}
-            {children}
-          </ReduxProvider>
+          <QueryProvider>
+            <ReduxProvider user={user}>
+              {user && <Header />}
+              {children}
+            </ReduxProvider>
+          </QueryProvider>
         </ThemeProvider>
       </body>
     </html>

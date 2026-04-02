@@ -34,11 +34,14 @@ model Order {
 }
 
 model Product {
-  id         String      @id @default(cuid())
-  name       String
-  imageColor String
-  status     OrderStatus @default(NEW)
-  params     Json
-  order      Order       @relation(fields: [orderId], references: [id])
-  orderId    String
+  id                String      @id @default(cuid())
+  name              String
+  imageUrl          String      @default("")
+  status            OrderStatus @default(NEW)
+  params            Json
+  userComment       String?
+  productionComment String?
+  position          Int         @default(0)
+  order             Order       @relation(fields: [orderId], references: [id])
+  orderId           String
 }
